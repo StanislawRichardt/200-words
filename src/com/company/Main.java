@@ -1,7 +1,6 @@
 package com.company;
 
 import java.io.*;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -22,17 +21,13 @@ public class Main {
     static String data;
 
     private static void sourceChoice() {
-        String choice = "";
         System.out.println("Choose probability source: ");
         System.out.println("a- equal probabilities");
         System.out.println("b- Probabilities from 4wyrazy.txt");
-        choice = read.next();
+        String choice = read.next();
         switch (choice) {
-            case "a": {
-                equalProbabilityWordsGenerator();
-                break;
-            }
-            case "b": {
+            case "a" -> equalProbabilityWordsGenerator();
+            case "b" -> {
                 dictionaryCreation();
                 fixedProbabilityWordsGenerator();
             }
@@ -83,8 +78,6 @@ public class Main {
             }
             probabilityCount(dictionaryCounterList, fileLength,1);
             cumulativeDistributionCount(dictionaryCounterList);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -121,9 +114,9 @@ public class Main {
         }
     }
     private static void probabilityDisplay(List<String[]> list){
-        for (int i = 0; i < list.size(); i++) {
+        for (String[] strings : list) {
 
-            System.out.println(list.get(i)[0]+'\t'+" | "+ list.get(i)[1]+'\t');
+            System.out.println(strings[0] + '\t' + " | " + strings[1] + '\t');
         }
     }
     private static void fixedProbabilityWordsGenerator(){
@@ -133,7 +126,6 @@ public class Main {
             {
                 double randomLetter = rand.nextInt(999) +1;
                 randomLetter/= 1000;
-                int minBottom;
                 for (int k = dictionaryCounterList.size()-1; k > 0; k--) {
 
                     if (Double.parseDouble(dictionaryCounterList.get(k)[2]) >= randomLetter && Double.parseDouble(dictionaryCounterList.get(k - 1)[2]) <= randomLetter) {
